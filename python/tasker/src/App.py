@@ -11,8 +11,11 @@ class App:
 
     def __init__(self):
         self.tasks = []
-        self.load_json_data()
         self.is_active = True
+        self.importer = Importer()
+        self.exporter = Exporter()
+
+        self.load_json_data()
 
     def print_data(self):
         if self.tasks:
@@ -50,15 +53,13 @@ class App:
 
     def load_json_data(self):
         print("Ładuję dane...")
-        importer = Importer()
-        importer.read_tasks()
-        self.tasks = importer.get_tasks()
+        self.importer.read_tasks()
+        self.tasks = self.importer.get_tasks()
         print("Dane załadowane")
 
     def save_json_data(self):
         print("Zapisuję dane...")
-        exporter = Exporter()
-        exporter.save_tasks(self.tasks)
+        self.exporter.save_tasks(self.tasks)
         print("Dane zapisane")
 
     def add_task(self):
